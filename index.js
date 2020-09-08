@@ -1,5 +1,10 @@
+require('dotenv').config();
+
+console.log("TOKEN: " + process.env.TOKEN);
+
 const Discord = require('discord.js');
 const fs = require('fs');
+
 
 const client = new Discord.Client();
 
@@ -39,4 +44,4 @@ client.on('message', message => {
     }
 })
 
-client.login('NzUxMTMzNDQ3NzY2MDE2MDUy.X1EpiQ.2KzCrL4eWsdYzGBtBhi3xHHtEVQ');
+client.login(process.env.TOKEN);
