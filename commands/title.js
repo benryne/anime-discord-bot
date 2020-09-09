@@ -15,7 +15,6 @@ const queryAnime = async (payload) => {
   
 const getAnime = async (payload) => {
     const anime = await queryAnime(payload)
-    console.log(anime.data.results);
     const animeTitles = anime.data.results.map(function(a) {
         return '> ' + a.title + 
             '\naired: ' + a.start_date.slice(0,10) + ' - ' + a.end_date.slice(0,10) +

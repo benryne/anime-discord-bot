@@ -32,15 +32,30 @@ client.on('message', message => {
 
     const args = message.content.slice(prefix.length,message.content.length).split(' ');
     const command = args[0].toLowerCase();
-    const payload = args[1].toLowerCase();
+    let payload;
+    if(args.length > 1) {
+        payload = args[1].toLowerCase();
+        for(let i = 2; i < args.length; i++) {
+            payload += ' ' + args[i].toLowerCase();
+        }
+    }
 
-    console.log(command);
     console.log(payload);
 
+    console.log(command);
+
     if(command == 'title') {
-        client.commands.get('title').execute(message,payload);
-    } else if(command == 'google') {
-        message.channel.send('https://google.com');
+        if(payload === undefined) message.channel.send('invalid format - correct usage: anime!title [title]');
+        else client.commands.get('title').execute(message,payload);
+    } else if(command == 'season') {
+        if(payload === undefined) message.channel.send('please specify season year');
+        else client.commands.get('season').execute(message,payload);
+    }
+    else if(command == 'user') {
+        client.commands.get('user').execute(message,payload);
+    }
+    else {
+        message.channel.send('command: "' + command + '" is invalid');
     }
 })
 
