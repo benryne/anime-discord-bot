@@ -44,7 +44,7 @@ const getAnimeUser = async (payload) => {
             return '> ' + a.title +'\nDropped' + '\tScore: ' + a.score + '\tEpisodes: ' + a.watched_episodes + '/' + a.total_episodes + '\n';
         }
         else {
-            return '> ' + a.title + '\Plan To Watch' + '\n' ;
+            return '> ' + a.title + ' Plan To Watch' + '\n' ;
         }
     }); 
     console.log(userAnimeTitles);

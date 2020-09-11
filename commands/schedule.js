@@ -29,31 +29,31 @@ const getAnimeScheduleWithDay = async (payload) => {
     let formattedAnimeSchedule = [];
     if(payload == 'monday') {
         formattedAnimeSchedule = anime.data.monday.map(function(a) {
-            return a.title + '\t' + a.airing_start.slice(11,16) + '\n';
+            return a.title + '\t' + a.airing_start.slice(11,16) + ' UTC' + '\n';
         }); 
     } else if(payload == 'tuesday') {
         formattedAnimeSchedule = anime.data.tuesday.map(function(a) {
-            return a.title + '\t' + a.airing_start.slice(11,16) + '\n';
+            return a.title + '\t' + a.airing_start.slice(11,16) + ' UTC' + '\n';
         });  
     } else if(payload == 'wednesday') {
         formattedAnimeSchedule = anime.data.wednesday.map(function(a) {
-            return a.title + '\t' + a.airing_start.slice(11,16) + '\n';
+            return a.title + '\t' + a.airing_start.slice(11,16) + ' UTC' + '\n';
         });  
     } else if(payload == 'thursday') {
         formattedAnimeSchedule = anime.data.thursday.map(function(a) {
-            return a.title + '\t' + a.airing_start.slice(11,16) + '\n';
+            return a.title + '\t' + a.airing_start.slice(11,16) + ' UTC' + '\n';
         });  
     } else if(payload == 'friday') {
         formattedAnimeSchedule = anime.data.friday.map(function(a) {
-            return a.title + '\t' + a.airing_start.slice(11,16) + '\n';
+            return a.title + '\t' + a.airing_start.slice(11,16) + ' UTC' + '\n';
         });  
     } else if(payload == 'saturday') {
         formattedAnimeSchedule = anime.data.saturday.map(function(a) {
-            return a.title + '\t' + a.airing_start.slice(11,16) + '\n';
+            return a.title + '\t' + a.airing_start.slice(11,16) + ' UTC' + '\n';
         });  
     } else {
         formattedAnimeSchedule = anime.data.sunday.map(function(a) {
-            return a.title + '\t' + a.airing_start.slice(11,16) + '\n';
+            return a.title + '\t' + a.airing_start.slice(11,16) + ' UTC' + '\n';
         });  
     }
 
@@ -64,25 +64,25 @@ const getAnimeScheduleWithDay = async (payload) => {
 const getAnimeSchedule = async () => {
     const anime = await queryAnimeSchedule();
     const formattedAnimeMonday = anime.data.monday.map(function(a) {
-        return a.title + '\t' + a.airing_start.slice(11,16) + '\n';
+        return a.title + '\t' + a.airing_start.slice(11,16) + ' UTC' + '\n';
     }); 
     const formattedAnimeTuesday = anime.data.tuesday.map(function(a) {
-        return a.title + '\t' + a.airing_start.slice(11,16) + '\n';
+        return a.title + '\t' + a.airing_start.slice(11,16) + ' UTC' + '\n';
     }); 
     const formattedAnimeWednesday = anime.data.wednesday.map(function(a) {
-        return a.title + '\t' + a.airing_start.slice(11,16) + '\n';
+        return a.title + '\t' + a.airing_start.slice(11,16) + ' UTC' + '\n';
     });
     const formattedAnimeThursday = anime.data.thursday.map(function(a) {
-        return a.title + '\t' + a.airing_start.slice(11,16) + '\n';
+        return a.title + '\t' + a.airing_start.slice(11,16) + ' UTC' + '\n';
     });  
     const formattedAnimeFriday = anime.data.friday.map(function(a) {
-        return a.title + '\t' + a.airing_start.slice(11,16) + '\n';
+        return a.title + '\t' + a.airing_start.slice(11,16) + ' UTC' + '\n';
     }); 
     const formattedAnimeSaturday = anime.data.saturday.map(function(a) {
-        return a.title + '\t' + a.airing_start.slice(11,16) + '\n';
+        return a.title + '\t' + a.airing_start.slice(11,16) + ' UTC' + '\n';
     }); 
     const formattedAnimeSunday = anime.data.sunday.map(function(a) {
-        return a.title + '\t' + a.airing_start.slice(11,16) + '\n';
+        return a.title + '\t' + a.airing_start.slice(11,16) + ' UTC' + '\n';
     }); 
     const ret = ['> Monday: \n' + formattedAnimeMonday.toString().replace(/,/g, ""),
         '> Tuesday: \n' + formattedAnimeTuesday.toString().replace(/,/g, ""),

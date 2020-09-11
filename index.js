@@ -8,7 +8,7 @@ const fs = require('fs');
 
 const client = new Discord.Client();
 
-const prefix = 'anime!';
+const prefix = 'a!';
 
 client.commands = new Discord.Collection();
 
@@ -28,7 +28,6 @@ client.once('ready', () => {
 client.on('message', message => {
     if(!message.content.startsWith(prefix) || message.author.bot ) return;
 
-    console.log(message);
 
     const args = message.content.slice(prefix.length,message.content.length).split(' ');
     const command = args[0].toLowerCase();
@@ -56,6 +55,9 @@ client.on('message', message => {
     }
     else if(command == 'schedule') {
         client.commands.get('schedule').execute(message,payload);
+    }
+    else if(command == 'help' ) {
+        client.commands.get('help').execute(message,payload);
     }
     else {
         message.channel.send('command: "' + command + '" is invalid');
