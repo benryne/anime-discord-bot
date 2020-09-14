@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const queryAnimeUser = async (payload) => {
+const queryAnimeUser = async (message,payload) => {
     const user = payload.split(' ');
     if(user.length == 1) {
         try {

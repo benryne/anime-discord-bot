@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const queryAnime = async (payload) => {
+const queryAnime = async (message,payload) => {
     try {
         return await         
         axios({
@@ -9,12 +9,15 @@ const queryAnime = async (payload) => {
             params: { q: payload, limit: '1' }
         })
     } catch (error) {
+        message.channel.send('Error with MAL Api try again.');
         console.error(error)
     }
 }
   
-const getAnime = async (payload) => {
-    const anime = await queryAnime(payload)
+const getAnime = async (message,payload) => {
+    const anime = await queryAnime(message,payload)
+    if(anime == undefined) return;
+
     const animeTitles = anime.data.results.map(function(a) {
         return '> ' + a.title + 
             '\naired: ' + a.start_date.slice(0,10) + ' - ' + a.end_date.slice(0,10) +
@@ -25,7 +28,7 @@ const getAnime = async (payload) => {
             '\n' + a.url;
     });
     
-    return animeTitles;
+    message.channel.send(animeTitles);
 }
   
 
@@ -33,7 +36,6 @@ module.exports = {
     name: 'title',
     description: 'returns info about anime title',
     async execute (message, payload){
-        const t = await getAnime(payload);
-        message.channel.send(t);
+        getAnime(message,payload);
     }
 }

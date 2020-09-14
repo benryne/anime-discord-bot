@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const queryAnimeSchedule = async () => {
+const queryAnimeSchedule = async (message) => {
     try {
         return await         
         axios({
@@ -9,10 +9,12 @@ const queryAnimeSchedule = async () => {
         })
     } catch (error) {
         console.error(error)
+        message.channel.send('Error with MAL Api try again.');
+        return;
     }
 }
 
-const queryAnimeScheduleWithDay = async (payload) => {
+const queryAnimeScheduleWithDay = async (message,payload) => {
     try {
         return await         
         axios({
@@ -21,11 +23,14 @@ const queryAnimeScheduleWithDay = async (payload) => {
         })
     } catch (error) {
         console.error(error)
+        message.channel.send('Error with MAL Api try again.');
+        return;
     }
 }
   
-const getAnimeScheduleWithDay = async (payload) => {
-    const anime = await queryAnimeScheduleWithDay(payload);
+const getAnimeScheduleWithDay = async (message,payload) => {
+    const anime = await queryAnimeScheduleWithDay(message,payload);
+    if(anime == undefined) return;
     let formattedAnimeSchedule = [];
     if(payload == 'monday') {
         formattedAnimeSchedule = anime.data.monday.map(function(a) {
@@ -58,11 +63,12 @@ const getAnimeScheduleWithDay = async (payload) => {
     }
 
     let capitalizedDay = payload.charAt(0).toUpperCase() + payload.slice(1);
-    return '> ' + capitalizedDay + ' schedule:\n' + formattedAnimeSchedule.toString().replace(/,/g, "");
+    message.channel.send('> ' + capitalizedDay + ' schedule:\n' + formattedAnimeSchedule.toString().replace(/,/g, ""));
 }
 
-const getAnimeSchedule = async () => {
-    const anime = await queryAnimeSchedule();
+const getAnimeSchedule = async (message) => {
+    const anime = await queryAnimeSchedule(message);
+    if(anime == undefined) return;
     const formattedAnimeMonday = anime.data.monday.map(function(a) {
         return a.title + '\t' + a.airing_start.slice(11,16) + ' UTC' + '\n';
     }); 
@@ -84,29 +90,44 @@ const getAnimeSchedule = async () => {
     const formattedAnimeSunday = anime.data.sunday.map(function(a) {
         return a.title + '\t' + a.airing_start.slice(11,16) + ' UTC' + '\n';
     }); 
-    const ret = ['> Monday: \n' + formattedAnimeMonday.toString().replace(/,/g, ""),
+    const formattedAnime = ['> Monday: \n' + formattedAnimeMonday.toString().replace(/,/g, ""),
         '> Tuesday: \n' + formattedAnimeTuesday.toString().replace(/,/g, ""),
         '> Wednesday: \n' + formattedAnimeWednesday.toString().replace(/,/g, ""),
         '> Thursday: \n' + formattedAnimeThursday.toString().replace(/,/g, ""),
         '> Friday: \n' + formattedAnimeFriday.toString().replace(/,/g, ""),
         '> Saturday: \n' + formattedAnimeSaturday.toString().replace(/,/g, ""),
         '> Sunday: \n' + formattedAnimeSunday.toString().replace(/,/g, "")];
-    return ret;
+
+    for(let x = 0; x < formattedAnime.length; x++) {
+        message.channel.send(formattedAnime[x]);
+    }
+}
+
+const checkValidDay = (payload) => {
+    const lowerCase = payload.toLowerCase();
+    if(lowerCase == 'sunday' || lowerCase == 'monday' || lowerCase == 'tuesday' || lowerCase == 'wednesday' ||
+        lowerCase == 'thursday' || lowerCase == 'friday' || lowerCase == 'saturday') {
+        return true;
+    }
+    return false;
 }
 
 module.exports = {
     name: 'schedule',
     description: 'returns info about anime scheduled',
     async execute (message, payload){
-        let anime = '';
         if(payload == undefined) {
-            anime = await getAnimeSchedule();
-            for(let x = 0; x < anime.length; x++) {
-                message.channel.send(anime[x]);
-            }
+            await getAnimeSchedule(message);
         } else {
-            anime = await getAnimeScheduleWithDay(payload);
-            message.channel.send(anime);
+            if(checkValidDay(payload)) {
+                await getAnimeScheduleWithDay(message,payload);
+            } else {
+                message.channel.send('Error: please provide a correct day of the week\n' +
+                '> Schedule Commands: \n' +
+                'a!schedule \n' + 
+                'a!schedule [day of the week]\n\n');
+                return;
+            }
         }
     }
 }
