@@ -38,7 +38,6 @@ const getAnimeSeason = async (message,payload) => {
   
 const checkSeasonInput = (message,payload) => {
     const season = payload.split(' ');
-    console.log(season);
     if(season.length != 2) {
         message.channel.send('Error: command must contain season and year \n' +  
         '> Season Commands: \n' +

@@ -11,6 +11,7 @@ const queryAnimeUser = async (message,payload) => {
             })
         } catch (error) {
             message.channel.send('Problem with api try agian');
+            console.error(error)
             return;
         }
     }
@@ -23,6 +24,7 @@ const queryAnimeUser = async (message,payload) => {
             })
         } catch (error) {
             message.channel.send('Problem with api try agian');
+            console.error(error)
             return;
         }
     }

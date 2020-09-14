@@ -1,7 +1,5 @@
 require('dotenv').config();
 
-console.log("TOKEN: " + process.env.TOKEN);
-
 const Discord = require('discord.js');
 const fs = require('fs');
 
@@ -38,10 +36,6 @@ client.on('message', message => {
             payload += ' ' + args[i].toLowerCase();
         }
     }
-
-    console.log(payload);
-
-    console.log(command);
 
     if(command == 'title') {
         if(payload === undefined) message.channel.send('invalid format - correct usage: anime!title [title]');
