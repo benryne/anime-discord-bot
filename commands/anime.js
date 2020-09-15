@@ -18,7 +18,7 @@ const getAnime = async (message,payload) => {
     const anime = await queryAnime(message,payload)
     if(anime == undefined) return;
 
-    const animeTitles = anime.data.results.map(function(a) {
+    const animeTitle = anime.data.results.map(function(a) {
         return '> ' + a.title + 
             '\naired: ' + a.start_date.slice(0,10) + ' - ' + a.end_date.slice(0,10) +
             '\nrated: ' + a.rated +
@@ -28,14 +28,16 @@ const getAnime = async (message,payload) => {
             '\n' + a.url;
     });
     
-    message.channel.send(animeTitles);
+    message.channel.send(animeTitle);
 }
   
 
 module.exports = {
-    name: 'title',
+    name: 'anime',
     description: 'returns info about anime title',
     async execute (message, payload){
+        if(payload === undefined) 
+            message.channel.send('Error: Please Specify Title\n > Title Commands: \na!anime [title]\n');
         getAnime(message,payload);
     }
 }

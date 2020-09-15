@@ -10,9 +10,14 @@ const getSeasonCommandsInfo = () => {
         'a!season [season] [year]\n\n';
 }
 
-const getTitleCommandsInfo = () => {
-    return '> Title Commands: \n' +
-    'a!title [show title]\n\n';
+const getAnimeCommandsInfo = () => {
+    return '> Anime Commands: \n' +
+    'a!anime [title]\n\n';
+}
+
+const getMangaCommandsInfo = () => {
+    return '> Manga Commands: \n' +
+    'a!manga [title]\n\n';
 }
 
 const getUserCommandsInfo = () => {
@@ -22,7 +27,8 @@ const getUserCommandsInfo = () => {
 }
 
 const getCommandsInfo = () => {
-    return getScheduleCommandsInfo() + getSeasonCommandsInfo() + getTitleCommandsInfo() + getUserCommandsInfo();
+    return getScheduleCommandsInfo() + getSeasonCommandsInfo() + getAnimeCommandsInfo() + 
+        getMangaCommandsInfo() + getUserCommandsInfo();
 }
 
 module.exports = {

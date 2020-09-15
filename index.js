@@ -37,24 +37,20 @@ client.on('message', message => {
         }
     }
 
-    if(command == 'title') {
-        if(payload === undefined) message.channel.send('invalid format - correct usage: anime!title [title]');
-        else client.commands.get('title').execute(message,payload);
+    if(command == 'anime') {
+        client.commands.get('anime').execute(message,payload);
+    } else if(command == 'manga') {
+        client.commands.get('manga').execute(message,payload);
     } else if(command == 'season') {
-        if(payload === undefined) message.channel.send('please specify season year');
-        else client.commands.get('season').execute(message,payload);
-    }
-    else if(command == 'user') {
+        client.commands.get('season').execute(message,payload);
+    } else if(command == 'user') {
         client.commands.get('user').execute(message,payload);
-    }
-    else if(command == 'schedule') {
+    } else if(command == 'schedule') {
         client.commands.get('schedule').execute(message,payload);
-    }
-    else if(command == 'help' ) {
+    } else if(command == 'help' ) {
         client.commands.get('help').execute(message,payload);
-    }
-    else {
-        message.channel.send('command: "' + command + '" is invalid');
+    } else {
+        message.channel.send('Error: command - "' + command + '" is invalid');
     }
 })
 
